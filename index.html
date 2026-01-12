@@ -17,7 +17,9 @@
             overflow-x: hidden;
             user-select: none;           
             -webkit-user-select: none;   
-            cursor: default; /* Beyaz sistem imleci görünür */             
+            cursor: default; 
+            /* LOADER İÇİN BAŞLANGIÇTA GİZLE */
+            visibility: hidden; 
         }
         body.mbk-reveal {
             visibility: visible !important;
@@ -232,15 +234,14 @@
         input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 2px; background: #555; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 10px; width: 10px; border-radius: 50%; background: #fff; margin-top: -4px; cursor: pointer; }
 
-/* --- SCROLLBAR --- */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #000; }
-::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-/* Kırmızı yerine soft bir gri yaptık: */
-::-webkit-scrollbar-thumb:hover { background: #555; }
+        /* --- SCROLLBAR --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; } /* Minimal Gri */
     </style>
 </head>
-<body class="mbk-reveal">
+<body>
 
     <canvas id="network-canvas"></canvas>
 
@@ -347,6 +348,40 @@
     <script>
         function toggleMenu() { document.body.classList.toggle('menu-open'); }
         
+        // --- LOADER (LOGO + TYPEWRITER .HOME) ---
+        (function() {
+            const duration = 1500; const speed = 30;
+            const base = "mburakkarakas"; let end = ".home"; // Burası .home olarak ayarlandı
+            const loader = document.createElement("div");
+            Object.assign(loader.style, {
+                position: "fixed", top: "0", left: "0", width: "100%", height: "100%",
+                backgroundColor: "#000", display: "flex", flexDirection: "column",
+                alignItems: "center", justifyContent: "center", zIndex: "2147483647"
+            });
+            const logo = document.createElement("img");
+            logo.src = "assets/mbkartsLogoPng.png"; 
+            Object.assign(logo.style, { width: "120px", height: "auto", marginBottom: "20px", opacity: "0", transition: "opacity 0.3s ease" });
+            const textEl = document.createElement("div");
+            Object.assign(textEl.style, { color: "#fff", fontFamily: "monospace", fontSize: "24px", letterSpacing: "0.1em", minHeight: "30px" });
+            loader.appendChild(logo); loader.appendChild(textEl);
+            document.documentElement.appendChild(loader);
+            setTimeout(() => { logo.style.opacity = "1"; }, 50); 
+            let i = 0;
+            function typeWriter() {
+                if (i < base.length) { textEl.textContent += base.charAt(i); i++; setTimeout(typeWriter, speed); } 
+                else { if (!textEl.textContent.includes(".")) { textEl.textContent += "."; setTimeout(typeEnd, 100); } }
+            }
+            let j = 1;
+            function typeEnd() { if (j < end.length) { textEl.textContent += end[j]; j++; setTimeout(typeEnd, speed); } }
+            typeWriter();
+            setTimeout(() => {
+                loader.style.transition = "opacity 0.4s ease"; loader.style.opacity = "0"; 
+                document.body.classList.add("mbk-reveal");
+                document.documentElement.style.backgroundColor = "";
+                setTimeout(() => loader.remove(), 400);
+            }, duration + 1000);
+        })();
+
         // --- RADIO (MİNİMAL VOLÜM MANTIĞI) ---
         var audio = document.getElementById("frisky-stream");
         var isPlaying = false;
