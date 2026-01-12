@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Mehmet Burak KARAKAŞ</title>
+    <link rel="icon" type="image/png" href="image_0.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Courier+New&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- GENEL AYARLAR --- */
+        html { background-color: #000 !important; scroll-behavior: smooth; }
+        body { 
+            margin: 0; font-family: 'Inter', sans-serif; color: white; overflow-x: hidden;
+            user-select: none; -webkit-user-select: none; cursor: default; 
+            visibility: hidden; /* Loader için */
+        }
+        body.mbk-reveal { visibility: visible !important; opacity: 1 !important; transition: opacity 0.5s ease !important; background-color: transparent !important; }
+        
+        /* Arka Plan */
+        #network-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -999; pointer-events: none; background: #000; }
+
+        /* --- 1. HEADER (SADE) --- */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; padding: 20px 50px; 
+            display: flex; align-items: center; justify-content: space-between; 
+            z-index: 10001; box-sizing: border-box;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.95), rgba(0,0,0,0.7), transparent);
+            backdrop-filter: blur(5px);
+        }
+        .header-left-group { display: flex; align-items: center; gap: 40px; }
+        .logo-wrapper { display: flex; align-items: center; gap: 10px; text-decoration: none; opacity: 1; transform-style: preserve-3d; cursor: pointer; transition: transform 0.3s ease-out; }
+        .logo-img { height: 40px; width: auto; object-fit: contain; filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5)); }
+        .logo-text { font-family: 'Helvetica', 'Arial', sans-serif; font-weight: 900; font-size: 20px; letter-spacing: -1px; color: #fff; }
+        nav { display: flex; gap: 30px; }
+        .nav-link { font-family: 'Helvetica', 'Arial', sans-serif; font-weight: 700; font-size: 14px; color: #fff; text-decoration: none; position: relative; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s ease; }
+        .nav-link:hover { color: #fff !important; animation: sopranos-shake 2s infinite linear; opacity: 1 !important; }
+        .header-right-group { display: flex; align-items: center; gap: 25px; }
+        .menu-toggle { cursor: pointer; width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; z-index: 10005; }
+        .bar { width: 100%; height: 2px; background-color: #fff; border-radius: 2px; transition: 0.4s; }
+        body.menu-open .bar:nth-child(1) { transform: rotate(45deg) translate(5px, 8px); }
+        body.menu-open .bar:nth-child(2) { opacity: 0; transform: translateX(-20px); }
+        body.menu-open .bar:nth-child(3) { transform: rotate(-45deg) translate(5px, -8px); }
+
+        .overlay-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: #000; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: 0.5s ease; pointer-events: none; }
+        body.menu-open .overlay-menu { opacity: 1; visibility: visible; pointer-events: auto; }
+        .overlay-nav { display: flex; flex-direction: column; gap: 30px; text-align: center; }
+        .overlay-link { font-size: 3rem; font-weight: 900; color: #fff; text-decoration: none; text-transform: uppercase; transition: 0.3s; }
+        .overlay-link:hover { color: #32CD32; }
+
+        /* --- BAŞLIKLAR --- */
+        .section-wrapper { display: flex; flex-direction: column; align-items: center; padding: 80px 20px; }
+        .title-container { display: inline-block; padding: 20px 0; margin-bottom: 30px; perspective: 1000px; cursor: default; }
+        .styled-title {
+            font-size: 4rem; font-weight: 900; margin: 0; color: #fff;
+            text-transform: uppercase; text-decoration: underline;
+            text-decoration-thickness: 2px; text-underline-offset: 15px; letter-spacing: -2px;
+            transform-origin: center; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            will-change: transform;
+        }
+        .title-container:hover .styled-title { transform: rotateX(10deg); }
+
+        /* --- 1. SKETCHBOOK (2D - SABİT) --- */
+        #sketchbook-section { display: flex; flex-direction: column; align-items: center; padding: 50px 20px; }
+        .sketchbook-container {
+            width: 1000px; height: 600px; max-width: 95vw;
+            background: #111; border-radius: 5px; display: flex;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8); overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: linear-gradient(to right, #111 0%, #1a1a1a 49%, #000 50%, #1a1a1a 51%, #111 100%);
+        }
+        
+        .sb-page { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        .sb-left { background: transparent; align-items: center; border-right: 1px solid #333; }
+        .sb-right { background: transparent; padding-left: 60px; border-left: 1px solid #333; }
+        
+        .sb-img-box { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .sb-img { max-width: 100%; max-height: 100%; object-fit: contain; border: 4px solid #fff; box-shadow: 5px 10px 20px rgba(0,0,0,0.5); transform: rotate(-1deg); transition: 0.4s; }
+        .sb-img:hover { transform: rotate(0deg) scale(1.02); }
+
+        .sb-meta { font-family: 'Courier New', monospace; color: #32CD32; margin-bottom: 10px; font-weight: bold; letter-spacing: 1px; }
+        .sb-head { font-size: 2.2rem; font-weight: 800; margin: 0 0 20px 0; text-transform: uppercase; line-height: 1; }
+        .sb-text { font-size: 1rem; line-height: 1.6; color: #aaa; margin-bottom: 40px; font-weight: 300; }
+        
+        .sb-nav-btn {
+            position: absolute; bottom: 40px;
+            background: transparent; border: 1px solid #444; color: #888;
+            padding: 10px 20px; font-family: 'Courier New', monospace; 
+            font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.3s;
+        }
+        .sb-nav-btn:hover { border-color: #fff; color: #fff; }
+        .sb-prev { left: 40px; }
+        .sb-next { right: 40px; }
+
+        /* --- 2. CRT TV (GAMES - LINK MODE) --- */
+        .crt-outer {
+            width: 100%; max-width: 700px; 
+            background: #202020; padding: 25px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 40px rgba(0,0,0,1);
+            border: 6px solid #2a2a2a;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .crt-screen {
+            width: 100%; height: 400px; background: #000;
+            border-radius: 60px / 20px; 
+            position: relative; overflow: hidden;
+            border: 2px solid #111;
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.05);
+        }
+        /* Mouse TV üzerindeyken sistem cursoru */
+        .crt-screen:hover { cursor: pointer; }
+
+        .crt-scanlines {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 3px, 3px 100%;
+        }
+
+        /* CRT Link Stilleri */
+        .crt-link { display: block; width: 100%; height: 100%; position: relative; text-decoration: none; }
+        .crt-placeholder { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.3s; }
+        .play-overlay {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: 1.5rem; color: #fff; font-weight: bold; border: 2px solid #fff;
+            padding: 10px 20px; border-radius: 5px; transition: 0.3s;
+            font-family: 'Inter', sans-serif; text-transform: uppercase; z-index: 20;
+            background: rgba(0,0,0,0.5);
+        }
+        .crt-link:hover .crt-placeholder { opacity: 0.5; }
+        .crt-link:hover .play-overlay { background: #cc0000; border-color: #cc0000; }
+
+        .crt-label { text-align: center; font-family: 'Courier New', monospace; color: #555; margin-top: 15px; font-size: 0.8rem; }
+
+        /* Itch.io Widget */
+        .itch-widget-container {
+            margin-top: 30px;
+            display: flex; justify-content: center; width: 100%;
+        }
+        .itch-widget-container:hover { cursor: default; }
+
+        /* --- 3. 3D MODELS (Y-ONLY TILT) --- */
+        #models-section { padding: 50px 0; overflow: hidden; }
+        .drag-container {
+            width: 100%; overflow-x: auto; cursor: grab; padding: 40px 5%;
+            scrollbar-width: none;
+        }
+        .drag-container::-webkit-scrollbar { display: none; }
+        .drag-track { display: flex; gap: 40px; width: max-content; }
+        
+        .drag-item {
+            width: 300px; height: 400px;
+            background: #111; border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px; overflow: hidden; position: relative;
+            user-select: none;
+            transform-style: preserve-3d;
+            /* Sağa sola yatma için */
+            transition: transform 0.1s ease-out;
+        }
+        .drag-item:hover { border-color: #555; }
+        .drag-img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+        .drag-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 20px; box-sizing: border-box;
+            transform: translateY(100%); transition: 0.3s;
+        }
+        .drag-item:hover .drag-overlay { transform: translateY(0); }
+        .drag-title { font-size: 1.2rem; font-weight: bold; color: #fff; }
+
+        /* --- FOOTER (ORİJİNAL) --- */
+        .page-footer { padding: 60px 50px; display: flex; align-items: center; background-color: #000; flex-wrap: wrap; gap: 20px; }
+        .footer-left { flex: 1; display: flex; flex-direction: column; gap: 15px; }
+        .footer-center { flex: 0 auto; margin: 0 20px; }
+        .footer-right { flex: 1; display: flex; gap: 15px; justify-content: flex-end; }
+        
+        .footer-btn { 
+            font-size: 1rem; font-weight: 700; color: #fff; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; padding: 5px 0; 
+            position: relative; transition: color 0.3s; cursor: pointer; width: fit-content;
+        }
+        /* ORİJİNAL YAVAŞ ANİMASYON (INDEX SAYFASIYLA AYNI) */
+        .footer-btn::after { 
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; 
+            background-color: #cc0000; 
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        .footer-btn:hover { color: #cc0000; }
+        .footer-btn:hover::after { width: 100%; }
+        
+        .footer-logo-img { width: 150px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.1)); opacity: 1; transform-style: preserve-3d; transition: transform 0.3s ease-out; cursor: pointer; }
+        .copyright { width: 100%; font-size: 0.8rem; color: #555; text-align: center; margin-top: 40px; }
+
+        /* SOSYAL MEDYA */
+        .social-wrapper { display: flex; align-items: center; gap: 12px; }
+        .social-link { 
+            display: flex; align-items: center; justify-content: center; 
+            width: 34px; height: 34px; background-color: #fff; border-radius: 50%; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            cursor: pointer; text-decoration: none; box-shadow: 0 0 0 rgba(255,255,255,0);
+        }
+        .social-img { width: 18px; height: 18px; object-fit: contain; }
+        .social-link:hover { transform: scale(1.15) translateY(-3px); box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4); }
+
+        /* --- DİĞER --- */
+        .mbk-jelly-cursor { 
+            position: fixed; top: 0; left: 0; width: 30px; height: 30px; 
+            background-color: #32CD32; border-radius: 50%; pointer-events: none; 
+            z-index: 9999999999; mix-blend-mode: exclusion; opacity: 0; 
+            transition: opacity 0.3s ease; 
+        }
+        .tv-active .mbk-jelly-cursor,
+        .widget-active .mbk-jelly-cursor { opacity: 0 !important; }
+
+        #mbk-radio-player { position: fixed; bottom: 30px; right: 30px; z-index: 9999; background: rgba(10, 0, 0, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255, 0, 0, 0.3); border-radius: 40px; padding: 8px 18px; display: flex; align-items: center; gap: 12px; transition: 0.4s; box-shadow: 0 5px 20px rgba(0,0,0,0.6); max-width: 160px; overflow: hidden; }
+        #mbk-radio-player:hover { max-width: 320px; border-color: #cc0000; }
+        #radio-toggle { background: transparent; border: 1px solid #fff; color: #fff; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; transition: 0.3s; }
+        .station-name { font-family: 'Courier New', monospace; font-size: 12px; font-weight: bold; color: #fff; white-space: nowrap; transition: 0.3s; }
+        .visualizer { display: flex; gap: 2px; height: 10px; align-items: flex-end; margin-top: 3px; }
+        .visualizer span { width: 3px; height: 2px; background: #555; }
+        .visualizer.active span { background: #cc0000; animation: equalize 0.5s infinite alternate; }
+        @keyframes equalize { 0% { height: 2px; } 100% { height: 12px; } }
+        .volume-container { display: flex; align-items: center; gap: 8px; opacity: 0; width: 0; transform: translateX(20px); transition: 0.4s ease 0.1s; }
+        #mbk-radio-player:hover .volume-container { opacity: 1; transform: translateX(0); width: 100px; margin-left: 10px; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 10px; }
+        input[type=range] { -webkit-appearance: none; width: 70px; background: transparent; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 2px; background: #555; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 10px; width: 10px; border-radius: 50%; background: #fff; margin-top: -4px; cursor: pointer; }
+        @keyframes sopranos-shake { 0% { transform: skew(0deg); } 5% { transform: skew(-0.8deg) translateX(2px); text-shadow: -3px 0 rgba(255, 0, 0, 0.7); } 10% { transform: skew(0.8deg) translateX(-1px); text-shadow: 3px 0 rgba(204, 0, 0, 0.8); } 15% { transform: skew(0deg); } 100% { transform: skew(0deg); } }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+</head>
+<body>
+
+    <canvas id="network-canvas"></canvas>
+
+    <header>
+        <div class="header-left-group">
+            <a href="index.html" class="logo-wrapper simple-tilt">
+                <img src="assets/mbkartsLogoPng.png" alt="Logo" class="logo-img">
+                <span class="logo-text">MBK.ART</span>
+            </a>
+            <nav>
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="projects.html" class="nav-link">Projects</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+        </div>
+        <div class="header-right-group">
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="overlay-menu">
+        <div class="overlay-nav">
+            <a href="index.html" class="overlay-link" onclick="toggleMenu()">HOME</a>
+            <a href="projects.html" class="overlay-link" onclick="toggleMenu()">PROJECTS</a>
+            <a href="about.html" class="overlay-link" onclick="toggleMenu()">ABOUT</a>
+            <a href="contact.html" class="overlay-link" onclick="toggleMenu()">CONTACT</a>
+        </div>
+    </div>
+
+    <div class="section-wrapper">
+        <div class="title-container">
+            <h2 class="styled-title">2D Sketchbook</h2>
+        </div>
+        <div class="sketchbook-container">
+            <div class="sb-page sb-left">
+                <div class="sb-img-box">
+                    <img id="sb-main-img" src="assets/projects/images/sketch1.jpg" alt="Sketch" class="sb-img">
+                </div>
+                <button class="sb-nav-btn sb-prev" onclick="changePage(-1)">< PREV</button>
+            </div>
+            <div class="sb-page sb-right">
+                <div id="sb-type" class="sb-meta">// CHARACTER DESIGN</div>
+                <h3 id="sb-title" class="sb-head">THE WARRIOR</h3>
+                <p id="sb-desc" class="sb-text">Fantastik evren için tasarlanan savaşçı karakter konsepti.</p>
+                <button class="sb-nav-btn sb-next" onclick="changePage(1)">NEXT ></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-wrapper">
+        <div class="title-container">
+            <h2 class="styled-title">Game Station</h2>
+        </div>
+        <div class="crt-outer" id="tv-zone">
+            <div class="crt-screen">
+                <div class="crt-scanlines"></div>
+                <a href="https://www.youtube.com/watch?v=BZ2t5ouyxgo&list=PLEczb6k9DD7MZjyjuLWeZ84SeqrZbFojR&index=1" target="_blank" class="crt-link">
+                    <img src="assets/projects/images/video-placeholder.png" alt="Watch Video" class="crt-placeholder">
+                    <div class="play-overlay">▶ WATCH ON YOUTUBE</div>
+                </a>
+            </div>
+            <div class="crt-label">MBK-SYSTEMS // VIDEO TERMINAL</div>
+        </div>
+        
+        <div class="itch-widget-container" id="itch-zone">
+            <iframe frameborder="0" src="https://itch.io/embed/3695693?border_width=4&amp;bg_color=777777&amp;link_color=24a619&amp;border_color=000000" width="558" height="173" sandbox="allow-same-origin allow-scripts allow-pointer-lock allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe>
+        </div>
+    </div>
+
+    <div class="section-wrapper">
+        <div class="title-container">
+            <h2 class="styled-title">3D Archive</h2>
+        </div>
+        <div class="drag-container" id="drag-container">
+            <div class="drag-track">
+                <div class="drag-item y-tilt">
+                    <img src="assets/projects/images/3d_1.jpg" class="drag-img">
+                    <div class="drag-overlay"><div class="drag-title">Model 01</div></div>
+                </div>
+                <div class="drag-item y-tilt">
+                    <img src="assets/projects/images/3d_2.jpg" class="drag-img">
+                    <div class="drag-overlay"><div class="drag-title">Model 02</div></div>
+                </div>
+                <div class="drag-item y-tilt">
+                    <img src="assets/projects/images/3d_3.jpg" class="drag-img">
+                    <div class="drag-overlay"><div class="drag-title">Model 03</div></div>
+                </div>
+                <div class="drag-item y-tilt">
+                    <img src="assets/projects/images/3d_4.jpg" class="drag-img">
+                    <div class="drag-overlay"><div class="drag-title">Model 04</div></div>
+                </div>
+                <div class="drag-item y-tilt">
+                    <img src="assets/projects/images/3d_5.jpg" class="drag-img">
+                    <div class="drag-overlay"><div class="drag-title">Model 05</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="page-footer">
+        <div class="footer-left">
+            <a href="index.html" class="footer-btn">HOME</a>
+            <a href="projects.html" class="footer-btn">Projects</a>
+            <a href="about.html" class="footer-btn">About Me</a>
+            <a href="contact.html" class="footer-btn">Contact</a>
+        </div>
+        <div class="footer-center"><img src="assets/mbkartsLogoPng.png" alt="MBK Art" class="footer-logo-img simple-tilt"></div>
+        <div class="footer-right">
+            <div class="social-wrapper">
+                <a href="https://x.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/Xnew.png" class="social-img"></a>
+                <a href="https://bsky.app/profile/mburakkarakas.art" target="_blank" class="social-link"><img src="assets/blueskynew.png" class="social-img"></a>
+                <a href="https://instagram.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/instagramnew.png" class="social-img"></a>
+                <a href="https://facebook.com/mehmetburakkarakas" target="_blank" class="social-link"><img src="assets/facebooknew.png" class="social-img"></a>
+                <a href="https://www.linkedin.com/in/mburakkarakas/" target="_blank" class="social-link"><img src="assets/linkedinnew.png" class="social-img"></a>
+                <a href="https://www.behance.net/mburakkarakas" target="_blank" class="social-link"><img src="assets/behancenew.png" class="social-img"></a>
+                <a href="https://sketchfab.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/sketchfabnew.png" class="social-img"></a>
+                <a href="https://soundcloud.com/karakash" target="_blank" class="social-link"><img src="assets/soundcloudnew.png" class="social-img"></a>
+                <a href="mailto:mburakkarakas@outlook.com" class="social-link"><img src="assets/mailnew.png" class="social-img"></a>
+            </div>
+        </div>
+        <div class="copyright"> © 2015-2026 mburakkarakas.art All rights reserved | Atomtan Arts & Atomtan Games </div>
+    </footer>
+
+    <div id="mbk-radio-player">
+        <button id="radio-toggle" onclick="toggleRadio()">
+            <span class="play-icon">▶</span><span class="pause-icon" style="display:none;">■</span>
+        </button>
+        <div class="radio-display">
+            <span class="station-name">FRISKY RADIO</span>
+            <div class="visualizer"><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="volume-container">
+            <input type="range" min="0" max="1" step="0.05" value="0.5" oninput="setVolume(this.value)">
+        </div>
+        <audio id="frisky-stream" preload="none"><source src="https://stream.friskyradio.com/deep_mp3_hi" type="audio/mpeg"></audio>
+    </div>
+
+    <script>
+        function toggleMenu() { document.body.classList.toggle('menu-open'); }
+
+        // --- SKETCHBOOK DATA ---
+        const drawings = [
+            { img: "assets/projects/images/sketch1.jpg", type: "// CHARACTER DESIGN", title: "THE WARRIOR", desc: "Savaşçı karakter tasarımı." },
+            { img: "assets/projects/images/sketch2.jpg", type: "// ENVIRONMENT", title: "SECTOR 9", desc: "Oyun içi çevre çizimi." }
+        ];
+        let sbIndex = 0;
+        const sbImg = document.getElementById('sb-main-img'), sbType = document.getElementById('sb-type'), sbTitle = document.getElementById('sb-title'), sbDesc = document.getElementById('sb-desc');
+        function changePage(d) {
+            sbIndex += d; if(sbIndex<0)sbIndex=drawings.length-1; if(sbIndex>=drawings.length)sbIndex=0;
+            sbImg.style.opacity=0;
+            setTimeout(()=>{
+                const data=drawings[sbIndex]; sbImg.src=data.img; sbType.innerText=data.type; sbTitle.innerText=data.title; sbDesc.innerText=data.desc; sbImg.style.opacity=1;
+            },200);
+        }
+
+        // --- DRAG SLIDER ---
+        const slider = document.getElementById('drag-container');
+        let isDown=false, startX, scrollLeft;
+        slider.addEventListener('mousedown', e => { isDown=true; slider.style.cursor='grabbing'; startX=e.pageX - slider.offsetLeft; scrollLeft=slider.scrollLeft; });
+        slider.addEventListener('mouseleave', () => { isDown=false; slider.style.cursor='grab'; });
+        slider.addEventListener('mouseup', () => { isDown=false; slider.style.cursor='grab'; });
+        slider.addEventListener('mousemove', e => { if(!isDown)return; e.preventDefault(); const x=e.pageX - slider.offsetLeft; const walk=(x-startX)*2; slider.scrollLeft=scrollLeft-walk; });
+
+        // --- LOADER ---
+        (function() {
+            const base = "mburakkarakas"; let end = ".projects"; 
+            const loader = document.createElement("div");
+            Object.assign(loader.style, { position: "fixed", top: "0", left: "0", width: "100%", height: "100%", backgroundColor: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", zIndex: "2147483647" });
+            const logo = document.createElement("img"); logo.src = "assets/mbkartsLogoPng.png"; 
+            Object.assign(logo.style, { width: "120px", opacity: "0", transition: "0.3s" });
+            const textEl = document.createElement("div");
+            Object.assign(textEl.style, { color: "#fff", fontFamily: "monospace", fontSize: "24px", marginTop: "20px" });
+            loader.appendChild(logo); loader.appendChild(textEl);
+            document.documentElement.appendChild(loader);
+            setTimeout(() => logo.style.opacity = "1", 50);
+            let i = 0;
+            function type() { if(i<base.length){textEl.textContent+=base[i];i++;setTimeout(type,30)}else if(!textEl.textContent.includes(".")){textEl.textContent+=".";setTimeout(()=>{let j=1;function typeEnd(){if(j<end.length){textEl.textContent+=end[j];j++;setTimeout(typeEnd,30)}}typeEnd()},100)}}
+            type();
+            setTimeout(() => { loader.style.transition="0.4s"; loader.style.opacity="0"; document.body.classList.add("mbk-reveal"); setTimeout(()=>loader.remove(),400); }, 2000);
+        })();
+
+        // --- RADIO ---
+        var audio=document.getElementById("frisky-stream"); var isPlaying=false;
+        function toggleRadio(){ var pI=document.querySelector(".play-icon"), paI=document.querySelector(".pause-icon"), vis=document.querySelector(".visualizer"); if(isPlaying){audio.pause();pI.style.display="inline";paI.style.display="none";vis.classList.remove("active");isPlaying=false;}else{audio.load();audio.play();pI.style.display="none";paI.style.display="inline";vis.classList.add("active");isPlaying=true;}}
+        function setVolume(v){audio.volume=v;}
+
+        // --- JELLY CURSOR & ZONE CONTROL ---
+        document.addEventListener("DOMContentLoaded", () => {
+            const cursor = document.createElement("div"); cursor.classList.add("mbk-jelly-cursor"); document.body.appendChild(cursor);
+            let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0, firstMove = false;
+            
+            // TV ve Itch Widget Alanları
+            const tvZone = document.getElementById('tv-zone');
+            const itchZone = document.getElementById('itch-zone');
+
+            // Cursor Gizleme Logic'i
+            const hideCursor = () => document.body.classList.add('tv-active');
+            const showCursor = () => document.body.classList.remove('tv-active');
+
+            if(tvZone) { tvZone.addEventListener('mouseenter', hideCursor); tvZone.addEventListener('mouseleave', showCursor); }
+            if(itchZone) { itchZone.addEventListener('mouseenter', hideCursor); itchZone.addEventListener('mouseleave', showCursor); }
+
+            document.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; if(!firstMove){cursor.style.opacity="0.8"; firstMove=true;} });
+            
+            function anim() {
+                let distX = mouseX - cursorX; let distY = mouseY - cursorY;
+                cursorX += distX * 0.15; cursorY += distY * 0.15;
+                const velocity = Math.sqrt(distX**2 + distY**2);
+                const stretch = Math.min(velocity * 0.005, 0.5);
+                const angle = Math.atan2(distY, distX);
+                cursor.style.transform = `translate3d(${cursorX-15}px, ${cursorY-15}px, 0) rotate(${angle}rad) scale(${1+stretch}, ${1-stretch})`;
+                requestAnimationFrame(anim);
+            }
+            anim();
+
+            document.querySelectorAll("a, button, .menu-toggle, .simple-tilt, .social-link").forEach(l => {
+                l.addEventListener("mouseenter", () => cursor.style.backgroundColor = "#32CD32");
+                l.addEventListener("mouseleave", () => cursor.style.backgroundColor = "#32CD32");
+            });
+        });
+
+        // --- Y-ONLY TILT FOR 3D CARDS ---
+        document.querySelectorAll('.y-tilt').forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const r = el.getBoundingClientRect();
+                const x = e.clientX - r.left; const cx = r.width / 2;
+                const rotateY = ((x - cx) / cx) * 15;
+                el.style.transform = `perspective(1000px) rotateY(${rotateY}deg)`;
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = `perspective(1000px) rotateY(0deg)`;
+            });
+        });
+
+        // --- GLOBAL LOGO TILT ---
+        document.querySelectorAll('.simple-tilt').forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const r = el.getBoundingClientRect();
+                const x = e.clientX - r.left; const y = e.clientY - r.top;
+                const dx = (x - r.width/2)/20; const dy = (y - r.height/2)/20;
+                el.style.transform = `perspective(500px) rotateX(${-dy}deg) rotateY(${dx}deg) scale(1.05)`;
+            });
+            el.addEventListener('mouseleave', () => el.style.transform = `perspective(500px) scale(1)`);
+        });
+
+        // --- NETWORK CANVAS ---
+        (function() {
+            const canvas = document.getElementById('network-canvas'); const ctx = canvas.getContext('2d');
+            let width, height, particles = [];
+            let mouse = { x: null, y: null, radius: 150 };
+            window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+            function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
+            window.addEventListener('resize', resize); resize();
+            class Particle {
+                constructor() { this.x = Math.random()*width; this.y = Math.random()*height; this.vx = (Math.random()-0.5)*0.5; this.vy = (Math.random()-0.5)*0.5; this.size = Math.random()*1.5+0.5; this.density = Math.random()*30+1; }
+                update() {
+                    this.x += this.vx; this.y += this.vy;
+                    if (mouse.x != null) {
+                        let dx = mouse.x - this.x; let dy = mouse.y - this.y; let dist = Math.sqrt(dx*dx + dy*dy);
+                        if (dist < mouse.radius) {
+                            const force = (mouse.radius - dist) / mouse.radius;
+                            this.x -= (dx/dist) * force * this.density * 0.2;
+                            this.y -= (dy/dist) * force * this.density * 0.2;
+                        }
+                    }
+                    if (this.x < 0 || this.x > width) this.vx *= -1; if (this.y < 0 || this.y > height) this.vy *= -1;
+                }
+                draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'; ctx.fill(); }
+            }
+            for(let i=0; i<90; i++) particles.push(new Particle());
+            function animate() {
+                ctx.clearRect(0,0,width,height);
+                for (let i=0; i<particles.length; i++) {
+                    particles[i].update(); particles[i].draw();
+                    for (let j=i+1; j<particles.length; j++) {
+                        const dist = Math.sqrt(Math.pow(particles[i].x-particles[j].x,2)+Math.pow(particles[i].y-particles[j].y,2));
+                        if(dist < 140) { ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.strokeStyle = `rgba(255, 255, 255, ${(1 - dist/140)*0.3})`; ctx.lineWidth = 0.6; ctx.stroke(); }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+    </script>
+</body>
+</html>
