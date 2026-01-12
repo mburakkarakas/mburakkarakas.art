@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me - Mehmet Burak KARAKAŞ</title>
-    
     <link rel="icon" type="image/png" href="image_0.png">
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Courier+New&display=swap" rel="stylesheet">
     
     <style>
@@ -16,7 +14,7 @@
             margin: 0; font-family: 'Inter', sans-serif; color: white; overflow-x: hidden;
             user-select: none; -webkit-user-select: none; 
             cursor: default; 
-            /* LOADER İÇİN BAŞLANGIÇTA GİZLE */
+            /* Loader olduğu için sayfa başlangıçta gizli */
             visibility: hidden; 
         }
         
@@ -41,7 +39,6 @@
         }
         .header-left-group { display: flex; align-items: center; gap: 40px; }
         
-        /* LOGO WRAPPER */
         .logo-wrapper { 
             display: flex; align-items: center; gap: 10px; text-decoration: none; 
             opacity: 1; transform-style: preserve-3d; will-change: transform; 
@@ -55,16 +52,9 @@
         .nav-link:hover { color: #fff !important; animation: sopranos-shake 2s infinite linear; opacity: 1 !important; }
 
         .header-right-group { display: flex; align-items: center; gap: 25px; }
-        .social-wrapper { display: flex; align-items: center; gap: 15px; }
-        .social-link { display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; transition: transform 0.3s ease; }
-        .social-img { width: 14px; height: 14px; object-fit: contain; opacity: 0.8; transition: 0.3s; }
-        .invert-me { filter: invert(1); }
-        .social-link:hover { transform: translateY(-3px); }
-        .social-link:hover .social-img { opacity: 1; filter: invert(18%) sepia(88%) saturate(5833%) hue-rotate(356deg) brightness(93%) contrast(116%); }
-
-        .header-separator { width: 1px; height: 20px; background-color: rgba(255,255,255,0.2); }
-
-        .menu-toggle { cursor: pointer; width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; z-index: 10005; position: relative; }
+        
+        /* Menu Toggle (Hamburger) */
+        .menu-toggle { cursor: pointer; width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; z-index: 10005; }
         .bar { width: 100%; height: 2px; background-color: #fff; border-radius: 2px; transition: 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6); }
         body.menu-open .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
         body.menu-open .bar:nth-child(2) { opacity: 0; transform: translateX(-20px); }
@@ -98,7 +88,6 @@
         }
 
         /* --- TİTREME (GLITCH) FIX --- */
-        /* Wrapper sabit bir kutu görevi görür */
         .about-title-wrapper { 
             display: inline-block; 
             padding: 20px 0;
@@ -106,7 +95,6 @@
             cursor: default;
         }
         
-        /* Başlık, wrapper'ın içinde hareket eder */
         .about-title { 
             font-size: 5.5rem; 
             font-weight: 900; 
@@ -117,13 +105,11 @@
             text-decoration-thickness: 2px; 
             text-underline-offset: 15px; 
             letter-spacing: -2px; 
-            /* Animasyon buraya uygulandı */
             transform-origin: right center; 
             transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             will-change: transform;
         }
 
-        /* Mouse Wrapper'a gelince Title döner */
         .about-title-wrapper:hover .about-title {
             transform: rotateY(-25deg) rotateX(5deg);
         }
@@ -172,6 +158,33 @@
         .footer-logo-img { width: 150px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.1)); opacity: 1; transform-style: preserve-3d; will-change: transform; transition: transform 0.3s ease-out; cursor: pointer; }
         .copyright { width: 100%; font-size: 0.8rem; color: #555; text-align: center; margin-top: 40px; }
 
+        /* --- SOSYAL MEDYA İKONLARI (FOOTER İÇİN) --- */
+        .social-wrapper { display: flex; align-items: center; gap: 12px; }
+        
+        .social-link { 
+            display: flex; align-items: center; justify-content: center; 
+            width: 34px; height: 34px; /* Boyut 34px yapıldı */
+            background-color: #fff; /* Arka plan beyaz */
+            border-radius: 50%; /* Yuvarlak */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 0 0 rgba(255,255,255,0);
+        }
+        
+        .social-img { 
+            width: 18px; height: 18px; /* İkon içi boyut */
+            object-fit: contain; 
+        }
+
+        .invert-me { filter: invert(1); } /* Yedek olarak bırakıldı */
+
+        /* YENİ HOVER EFEKTİ: Stabil Büyüme ve Parlama */
+        .social-link:hover {
+            transform: scale(1.15) translateY(-3px); 
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4); 
+        }
+
         /* --- JELLY CURSOR STYLES --- */
         .mbk-jelly-cursor { 
             position: fixed; top: 0; left: 0; width: 30px; height: 30px; 
@@ -211,7 +224,9 @@
         ::-webkit-scrollbar-thumb:hover { background: #555; } /* Minimal Gri */
     </style>
 </head>
-<body> <canvas id="network-canvas"></canvas>
+<body>
+
+    <canvas id="network-canvas"></canvas>
 
     <header>
         <div class="header-left-group">
@@ -227,18 +242,6 @@
             </nav>
         </div>
         <div class="header-right-group">
-            <div class="social-wrapper">
-                <a href="https://x.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/X.png" class="social-img"></a>
-                <a href="https://bsky.app/profile/mburakkarakas.art" target="_blank" class="social-link"><img src="assets/bluesky.png" class="social-img invert-me"></a>
-                <a href="https://instagram.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/instagram.png" class="social-img invert-me" style="transform: scale(1.15);"></a>
-                <a href="https://facebook.com/mehmetburakkarakas" target="_blank" class="social-link"><img src="assets/facebook.png" class="social-img invert-me"></a>
-                <a href="https://www.linkedin.com/in/mburakkarakas/" target="_blank" class="social-link"><img src="assets/linkedin.png" class="social-img"></a>
-                <a href="https://www.behance.net/mburakkarakas" target="_blank" class="social-link"><img src="assets/behance.png" class="social-img invert-me"></a>
-                <a href="https://sketchfab.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/sketchfab.png" class="social-img invert-me"></a>
-                <a href="https://soundcloud.com/karakash" target="_blank" class="social-link"><img src="assets/soundcloud.png" class="social-img invert-me"></a>
-                <a href="mailto:mburakkarakas@outlook.com" class="social-link"><img src="assets/mail.png" class="social-img invert-me" style="transform: scale(1.2);"></a>
-            </div>
-            <div class="header-separator"></div>
             <div class="menu-toggle" onclick="toggleMenu()">
                 <div class="bar"></div><div class="bar"></div><div class="bar"></div>
             </div>
@@ -262,8 +265,8 @@
             <div class="about-description">
                 <p>Mehmet Burak Karakas is an artist born in Silivri, Istanbul, originally from Tekirdag. Since childhood, he has been passionate about drawing cartoons, and over time, he has specialized in character design, game development, and animation.</p>
                 <p>He graduated from the Department of Cartoon and Animation at the Faculty of Fine Arts, Dokuz Eylül University, completing a 4-year program. He is also pursuing a second bachelor’s degree in Visual Communication Design at Anadolu University.</p>
-                <p>Among his notable projects is the 2024 animated documentary “Favela Izmir”, which draws parallels between Kadifekale in Izmir and the favelas of Brazil. In 2025, he developed the video game “Sector 9: The Awakening”, for which he designed all characters, animation sprites, and 3D environment models himself, using artificial intelligence only in the coding process.</p>
-                <p>As for collaborative works, one of the highlights is the animated film “The Rhythm of Izmir”, where he transformed selected photographs into moving animations. The film won an award in Itabuna, Brazil, as part of a team effort. He also contributed to the animated film “Mind Halt”, where he was part of the 3D team, assisting in set dressing and 3D modeling.</p>
+                <p>Among his notable projects is the 2024 animated documentary “Favela izmir”, which draws parallels between Kadifekale in izmir and the favelas of Brazil. In 2025, he developed the video game “Sector 9: The Awakening”, for which he designed all characters, animation sprites, and 3D environment models himself, using artificial intelligence only in the coding process.</p>
+                <p>As for collaborative works, one of the highlights is the animated film “The Rhythm of izmir”, where he transformed selected photographs into moving animations. The film won an award in Itabuna, Brazil, as part of a team effort. He also contributed to the animated film “Mind Halt”, where he was part of the 3D team, assisting in set dressing and 3D modeling.</p>
                 <p>Karakas continues to engage in both individual and collaborative projects, combining his technical expertise with a creative vision. For him, animation, character design, and game development are not merely professions, but lifelong passions.</p>
             </div>
         </div>
@@ -282,15 +285,17 @@
         </div>
         <div class="footer-center"><img src="assets/mbkartsLogoPng.png" alt="MBK Art" class="footer-logo-img simple-tilt"></div>
         <div class="footer-right">
-            <a href="https://x.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/X.png" class="social-img"></a>
-            <a href="https://bsky.app/profile/mburakkarakas.art" target="_blank" class="social-link"><img src="assets/bluesky.png" class="social-img invert-me"></a>
-            <a href="https://instagram.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/instagram.png" class="social-img invert-me" style="transform: scale(1.15);"></a>
-            <a href="https://facebook.com/mehmetburakkarakas" target="_blank" class="social-link"><img src="assets/facebook.png" class="social-img invert-me"></a>
-            <a href="https://www.linkedin.com/in/mburakkarakas/" target="_blank" class="social-link"><img src="assets/linkedin.png" class="social-img"></a>
-            <a href="https://www.behance.net/mburakkarakas" target="_blank" class="social-link"><img src="assets/behance.png" class="social-img invert-me"></a>
-            <a href="https://sketchfab.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/sketchfab.png" class="social-img invert-me"></a>
-            <a href="https://soundcloud.com/karakash" target="_blank" class="social-link"><img src="assets/soundcloud.png" class="social-img invert-me"></a>
-            <a href="mailto:mburakkarakas@outlook.com" class="social-link"><img src="assets/mail.png" class="social-img invert-me" style="transform: scale(1.2);"></a>
+            <div class="social-wrapper">
+                <a href="https://x.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/Xnew.png" class="social-img"></a>
+                <a href="https://bsky.app/profile/mburakkarakas.art" target="_blank" class="social-link"><img src="assets/blueskynew.png" class="social-img"></a>
+                <a href="https://instagram.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/instagramnew.png" class="social-img"></a>
+                <a href="https://facebook.com/mehmetburakkarakas" target="_blank" class="social-link"><img src="assets/facebooknew.png" class="social-img"></a>
+                <a href="https://www.linkedin.com/in/mburakkarakas/" target="_blank" class="social-link"><img src="assets/linkedinnew.png" class="social-img"></a>
+                <a href="https://www.behance.net/mburakkarakas" target="_blank" class="social-link"><img src="assets/behancenew.png" class="social-img"></a>
+                <a href="https://sketchfab.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/sketchfabnew.png" class="social-img"></a>
+                <a href="https://soundcloud.com/karakash" target="_blank" class="social-link"><img src="assets/soundcloudnew.png" class="social-img"></a>
+                <a href="mailto:mburakkarakas@outlook.com" class="social-link"><img src="assets/mailnew.png" class="social-img"></a>
+            </div>
         </div>
         <div class="copyright"> © 2015-2026 mburakkarakas.art All rights reserved | Atomtan Arts & Atomtan Games </div>
     </footer>
@@ -315,7 +320,7 @@
         // --- LOADER (LOGO + TYPEWRITER .aboutme) ---
         (function() {
             const duration = 1500; const speed = 30;
-            const base = "mburakkarakas"; let end = ".aboutme"; // BURASI ÖNEMLİ
+            const base = "mburakkarakas"; let end = ".aboutme"; // .aboutme olarak ayarlandı
             const loader = document.createElement("div");
             Object.assign(loader.style, {
                 position: "fixed", top: "0", left: "0", width: "100%", height: "100%",
@@ -419,7 +424,7 @@
             }
             animCursor();
             
-            document.querySelectorAll("a, button, .menu-toggle, .simple-tilt").forEach(l => {
+            document.querySelectorAll("a, button, .menu-toggle, .simple-tilt, .social-link").forEach(l => {
                 l.addEventListener("mouseenter", () => cursor.style.backgroundColor = "#32CD32");
                 l.addEventListener("mouseleave", () => cursor.style.backgroundColor = "#32CD32");
             });
@@ -440,5 +445,4 @@
         });
     </script>
 </body>
-
 </html>

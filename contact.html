@@ -13,10 +13,8 @@
         body { 
             margin: 0; font-family: 'Inter', sans-serif; color: white; overflow-x: hidden;
             user-select: none; -webkit-user-select: none; cursor: default; 
-            /* Loader olduğu için sayfa başlangıçta gizli */
-            visibility: hidden;            
+            visibility: hidden; /* Loader için */           
         }
-        /* Loader bitince bu class eklenir ve sayfa görünür */
         body.mbk-reveal { visibility: visible !important; opacity: 1 !important; transition: opacity 0.5s ease !important; background-color: transparent !important; }
         
         #network-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -999; pointer-events: none; background: #000; }
@@ -39,14 +37,8 @@
         .nav-link:hover { color: #fff !important; animation: sopranos-shake 2s infinite linear; opacity: 1 !important; }
 
         .header-right-group { display: flex; align-items: center; gap: 25px; }
-        .social-wrapper { display: flex; align-items: center; gap: 15px; }
-        .social-link { display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; transition: transform 0.3s ease; }
-        .social-img { width: 14px; height: 14px; object-fit: contain; opacity: 0.8; transition: 0.3s; }
-        .invert-me { filter: invert(1); }
-        .social-link:hover { transform: translateY(-3px); }
-        .social-link:hover .social-img { opacity: 1; filter: invert(18%) sepia(88%) saturate(5833%) hue-rotate(356deg) brightness(93%) contrast(116%); }
-        .header-separator { width: 1px; height: 20px; background-color: rgba(255,255,255,0.2); }
-
+        
+        /* Menu Toggle (Hamburger) */
         .menu-toggle { cursor: pointer; width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; z-index: 10005; }
         .bar { width: 100%; height: 2px; background-color: #fff; border-radius: 2px; transition: 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6); }
         body.menu-open .bar:nth-child(1) { transform: rotate(45deg) translate(5px, 8px); }
@@ -72,7 +64,6 @@
             z-index: 10; 
         }
         
-        /* BAŞLIK */
         .contact-title { 
             font-size: 5.5rem; 
             font-weight: 900; 
@@ -94,7 +85,6 @@
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 2px 0px 1px rgba(204, 0, 0, 0.5), -2px 0px 1px rgba(0, 0, 255, 0.5); 
         }
 
-        /* FORM YAPISI */
         .contact-form {
             display: flex;
             flex-direction: column;
@@ -116,14 +106,11 @@
             font-size: 1rem;
             outline: none;
             box-sizing: border-box;
-            
-            /* ANIMASYON AYARLARI */
             transform-style: preserve-3d;
             transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             transform: rotateY(0deg); 
         }
 
-        /* ÖZEL "SOL ÖNE / SAĞ ARKAYA" ANİMASYONU */
         .constrained-tilt:hover, 
         .constrained-tilt:focus {
             background: rgba(255, 255, 255, 0.08);
@@ -132,10 +119,7 @@
             transform: rotateY(4deg) translateZ(10px); 
         }
 
-        .form-textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
+        .form-textarea { resize: vertical; min-height: 150px; }
 
         .send-btn {
             background: transparent;
@@ -173,10 +157,37 @@
         .footer-logo-img { width: 150px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.1)); opacity: 1; transform-style: preserve-3d; transition: transform 0.3s ease-out; cursor: pointer; }
         .copyright { width: 100%; font-size: 0.8rem; color: #555; text-align: center; margin-top: 40px; }
 
+        /* --- SOSYAL MEDYA İKONLARI (SADECE FOOTER) --- */
+        .social-wrapper { display: flex; align-items: center; gap: 12px; }
+        
+        .social-link { 
+            display: flex; align-items: center; justify-content: center; 
+            width: 34px; height: 34px; /* İkon kutusu boyutu (38 -> 34 yapıldı) */
+            background-color: #fff; 
+            border-radius: 50%; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 0 0 rgba(255,255,255,0);
+        }
+        
+        .social-img { 
+            width: 18px; height: 18px; /* İkon içi boyut (20 -> 18 yapıldı) */
+            object-fit: contain; 
+        }
+
+        .invert-me { filter: invert(1); } /* Gerekirse kullanılır */
+
+        /* YENİ HOVER EFEKTİ: Stabil Büyüme */
+        .social-link:hover {
+            transform: scale(1.15) translateY(-3px); 
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4); 
+        }
+
         /* --- JELLY CURSOR --- */
         .mbk-jelly-cursor { position: fixed; top: 0; left: 0; width: 30px; height: 30px; background-color: #32CD32; border-radius: 50%; pointer-events: none; z-index: 9999999999; mix-blend-mode: exclusion; opacity: 0; will-change: transform; transform-origin: center; transition: opacity 0.3s ease; }
 
-        /* SOPRANOS KEYFRAMES: KIRMIZI */
+        /* SOPRANOS KEYFRAMES */
         @keyframes sopranos-shake { 
             0% { transform: skew(0deg); } 
             5% { transform: skew(-0.8deg) translateX(2px); text-shadow: -3px 0 rgba(255, 0, 0, 0.7); } 
@@ -204,7 +215,7 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; } /* Minimal Gri */
+        ::-webkit-scrollbar-thumb:hover { background: #555; } 
     </style>
 </head>
 <body>
@@ -214,7 +225,7 @@
     <header>
         <div class="header-left-group">
             <a href="index.html" class="logo-wrapper simple-tilt">
-                <img src="assets/mbkartsLogoPng.png" alt="Burak Karakaş" class="logo-img">
+                <img src="assets/mbkartsLogoPng.png" alt="Burak Karakaş Logo" class="logo-img">
                 <span class="logo-text">MBK.ART</span>
             </a>
             <nav>
@@ -225,18 +236,6 @@
             </nav>
         </div>
         <div class="header-right-group">
-            <div class="social-wrapper">
-                <a href="https://x.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/X.png" class="social-img"></a>
-                <a href="https://bsky.app/profile/mburakkarakas.art" target="_blank" class="social-link"><img src="assets/bluesky.png" class="social-img invert-me"></a>
-                <a href="https://instagram.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/instagram.png" class="social-img invert-me" style="transform: scale(1.15);"></a>
-                <a href="https://facebook.com/mehmetburakkarakas" target="_blank" class="social-link"><img src="assets/facebook.png" class="social-img invert-me"></a>
-                <a href="https://www.linkedin.com/in/mburakkarakas/" target="_blank" class="social-link"><img src="assets/linkedin.png" class="social-img"></a>
-                <a href="https://www.behance.net/mburakkarakas" target="_blank" class="social-link"><img src="assets/behance.png" class="social-img invert-me"></a>
-                <a href="https://sketchfab.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/sketchfab.png" class="social-img invert-me"></a>
-                <a href="https://soundcloud.com/karakash" target="_blank" class="social-link"><img src="assets/soundcloud.png" class="social-img invert-me"></a>
-                <a href="mailto:mburakkarakas@outlook.com" class="social-link"><img src="assets/mail.png" class="social-img invert-me" style="transform: scale(1.2);"></a>
-            </div>
-            <div class="header-separator"></div>
             <div class="menu-toggle" onclick="toggleMenu()">
                 <div class="bar"></div><div class="bar"></div><div class="bar"></div>
             </div>
@@ -271,15 +270,17 @@
         </div>
         <div class="footer-center"><img src="assets/mbkartsLogoPng.png" alt="MBK Art" class="footer-logo-img simple-tilt"></div>
         <div class="footer-right">
-            <a href="https://x.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/X.png" class="social-img"></a>
-            <a href="https://bsky.app/profile/mburakkarakas.art" target="_blank" class="social-link"><img src="assets/bluesky.png" class="social-img invert-me"></a>
-            <a href="https://instagram.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/instagram.png" class="social-img invert-me" style="transform: scale(1.15);"></a>
-            <a href="https://facebook.com/mehmetburakkarakas" target="_blank" class="social-link"><img src="assets/facebook.png" class="social-img invert-me"></a>
-            <a href="https://www.linkedin.com/in/mburakkarakas/" target="_blank" class="social-link"><img src="assets/linkedin.png" class="social-img"></a>
-            <a href="https://www.behance.net/mburakkarakas" target="_blank" class="social-link"><img src="assets/behance.png" class="social-img invert-me"></a>
-            <a href="https://sketchfab.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/sketchfab.png" class="social-img invert-me"></a>
-            <a href="https://soundcloud.com/karakash" target="_blank" class="social-link"><img src="assets/soundcloud.png" class="social-img invert-me"></a>
-            <a href="mailto:mburakkarakas@outlook.com" class="social-link"><img src="assets/mail.png" class="social-img invert-me"></a>
+            <div class="social-wrapper">
+                <a href="https://x.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/Xnew.png" class="social-img"></a>
+                <a href="https://bsky.app/profile/mburakkarakas.art" target="_blank" class="social-link"><img src="assets/blueskynew.png" class="social-img"></a>
+                <a href="https://instagram.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/instagramnew.png" class="social-img"></a>
+                <a href="https://facebook.com/mehmetburakkarakas" target="_blank" class="social-link"><img src="assets/facebooknew.png" class="social-img"></a>
+                <a href="https://www.linkedin.com/in/mburakkarakas/" target="_blank" class="social-link"><img src="assets/linkedinnew.png" class="social-img"></a>
+                <a href="https://www.behance.net/mburakkarakas" target="_blank" class="social-link"><img src="assets/behancenew.png" class="social-img"></a>
+                <a href="https://sketchfab.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/sketchfabnew.png" class="social-img"></a>
+                <a href="https://soundcloud.com/karakash" target="_blank" class="social-link"><img src="assets/soundcloudnew.png" class="social-img"></a>
+                <a href="mailto:mburakkarakas@outlook.com" class="social-link"><img src="assets/mailnew.png" class="social-img"></a>
+            </div>
         </div>
         <div class="copyright"> © 2015-2026 mburakkarakas.art All rights reserved | Atomtan Arts & Atomtan Games </div>
     </footer>
@@ -302,26 +303,16 @@
         function toggleMenu() { document.body.classList.toggle('menu-open'); }
         
         // --- FORM GÖNDERİMİ (JS MAİLTO DÜZELTMESİ) ---
-        // Bu kısım, butona basınca doğru mail yapısını oluşturur.
         document.getElementById('mbk-contact-form').addEventListener('submit', function(e) {
-            e.preventDefault(); // Sayfanın yenilenmesini durdur
-            
-            // Kullanıcının yazdığı mail ve mesajı al
+            e.preventDefault(); 
             var userEmail = this.querySelector('input[name="email"]').value;
             var userMessage = this.querySelector('textarea[name="message"]').value;
-            
-            // Mail formatını hazırla
-            // Kime: mburakkarakas@outlook.com
-            // Konu: Siteden yeni mesaj (Gönderen Kişi)
-            // İçerik: Gönderen ve Mesaj metni
             var subject = "Contact from MBK Website (" + userEmail + ")";
             var body = "Sender: " + userEmail + "\n\nMessage:\n" + userMessage;
-            
-            // Mail uygulamasını aç
             window.location.href = "mailto:mburakkarakas@outlook.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
         });
 
-        // --- LOADER (LOGO + TYPEWRITER .contact) ---
+        // --- LOADER ---
         (function() {
             const duration = 1500; const speed = 30;
             const base = "mburakkarakas"; let end = ".contact"; 
@@ -365,6 +356,7 @@
         }
         function setVolume(val) { audio.volume = val; }
 
+        // --- NETWORK CANVAS ---
         (function() {
             const canvas = document.getElementById('network-canvas'); const ctx = canvas.getContext('2d');
             let width, height, particles = [];
@@ -373,7 +365,7 @@
             function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
             window.addEventListener('resize', resize); resize();
             class Particle {
-                constructor() { this.x = Math.random()*width; this.y = Math.random()*height; this.vx = (Math.random()-0.5)*0.5; this.vy = (Math.random()-0.5)*0.5; this.size = Math.random()*1.5+0.5; this.density = (Math.random()*30)+1; }
+                constructor() { this.x = Math.random()*width; this.y = Math.random()*height; this.vx = (Math.random()-0.5)*0.5; this.vy = (Math.random()-0.5)*0.5; this.size = Math.random()*1.5+0.5; this.density = Math.random()*30+1; }
                 update() {
                     this.x += this.vx; this.y += this.vy;
                     if (mouse.x != null) {
@@ -390,12 +382,15 @@
             }
             for(let i=0; i<90; i++) particles.push(new Particle());
             function animate() {
-                ctx.clearRect(0,0,width,height);
-                for (let i=0; i<particles.length; i++) {
+                ctx.clearRect(0, 0, width, height);
+                for (let i = 0; i < particles.length; i++) {
                     particles[i].update(); particles[i].draw();
-                    for (let j=i+1; j<particles.length; j++) {
+                    for (let j = i + 1; j < particles.length; j++) {
                         const dist = Math.sqrt(Math.pow(particles[i].x-particles[j].x,2)+Math.pow(particles[i].y-particles[j].y,2));
-                        if(dist < 140) { ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.strokeStyle = `rgba(255, 255, 255, ${(1 - dist/140)*0.3})`; ctx.lineWidth = 0.6; ctx.stroke(); }
+                        if (dist < 140) {
+                            ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(255, 255, 255, ${(1 - dist/140) * 0.3})`; ctx.lineWidth = 0.6; ctx.stroke();
+                        }
                     }
                 }
                 requestAnimationFrame(animate);
@@ -423,7 +418,7 @@
                 requestAnimationFrame(animCursor);
             }
             animCursor();
-            document.querySelectorAll("a, button, .menu-toggle, .simple-tilt, .constrained-tilt").forEach(l => {
+            document.querySelectorAll("a, button, .menu-toggle, .simple-tilt, .constrained-tilt, .social-link").forEach(l => {
                 l.addEventListener("mouseenter", () => cursor.style.backgroundColor = "#32CD32");
                 l.addEventListener("mouseleave", () => cursor.style.backgroundColor = "#32CD32");
             });
