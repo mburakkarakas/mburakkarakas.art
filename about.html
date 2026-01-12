@@ -19,7 +19,14 @@
             /* LOADER İÇİN BAŞLANGIÇTA GİZLE */
             visibility: hidden; 
         }
-        body.mbk-reveal { visibility: visible !important; opacity: 1 !important; transition: opacity 0.5s ease !important; background-color: transparent !important; }
+        
+        /* Loader bitince bu sınıf eklenir */
+        body.mbk-reveal { 
+            visibility: visible !important; 
+            opacity: 1 !important; 
+            transition: opacity 0.5s ease !important; 
+            background-color: transparent !important; 
+        }
 
         /* --- ARKA PLAN --- */
         #network-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -999; pointer-events: none; background: #000; }
@@ -91,14 +98,15 @@
         }
 
         /* --- TİTREME (GLITCH) FIX --- */
-        /* Wrapper sabit durur */
+        /* Wrapper sabit bir kutu görevi görür */
         .about-title-wrapper { 
             display: inline-block; 
             padding: 20px 0;
-            perspective: 1000px; 
+            perspective: 1000px; /* 3D derinlik */
             cursor: default;
         }
-        /* Başlık hareket eder */
+        
+        /* Başlık, wrapper'ın içinde hareket eder */
         .about-title { 
             font-size: 5.5rem; 
             font-weight: 900; 
@@ -109,11 +117,13 @@
             text-decoration-thickness: 2px; 
             text-underline-offset: 15px; 
             letter-spacing: -2px; 
+            /* Animasyon buraya uygulandı */
             transform-origin: right center; 
             transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             will-change: transform;
         }
-        /* Mouse wrapper'a gelince title döner */
+
+        /* Mouse Wrapper'a gelince Title döner */
         .about-title-wrapper:hover .about-title {
             transform: rotateY(-25deg) rotateX(5deg);
         }
@@ -201,9 +211,7 @@
         ::-webkit-scrollbar-thumb:hover { background: #555; } /* Minimal Gri */
     </style>
 </head>
-<body>
-
-    <canvas id="network-canvas"></canvas>
+<body> <canvas id="network-canvas"></canvas>
 
     <header>
         <div class="header-left-group">
@@ -307,7 +315,7 @@
         // --- LOADER (LOGO + TYPEWRITER .aboutme) ---
         (function() {
             const duration = 1500; const speed = 30;
-            const base = "mburakkarakas"; let end = ".aboutme"; // .aboutme olarak ayarlandı
+            const base = "mburakkarakas"; let end = ".aboutme"; // BURASI ÖNEMLİ
             const loader = document.createElement("div");
             Object.assign(loader.style, {
                 position: "fixed", top: "0", left: "0", width: "100%", height: "100%",
