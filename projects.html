@@ -20,7 +20,7 @@
         /* Arka Plan */
         #network-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -999; pointer-events: none; background: #000; }
 
-        /* --- 1. HEADER (SADE) --- */
+        /* --- 1. HEADER (CONTACT SAYFASIYLA EŞİTLENDİ) --- */
         header {
             position: fixed; top: 0; left: 0; width: 100%; padding: 20px 50px; 
             display: flex; align-items: center; justify-content: space-between; 
@@ -29,26 +29,29 @@
             backdrop-filter: blur(5px);
         }
         .header-left-group { display: flex; align-items: center; gap: 40px; }
-        .logo-wrapper { display: flex; align-items: center; gap: 10px; text-decoration: none; opacity: 1; transform-style: preserve-3d; cursor: pointer; transition: transform 0.3s ease-out; }
+        .logo-wrapper { display: flex; align-items: center; gap: 10px; text-decoration: none; opacity: 1; transform-style: preserve-3d; will-change: transform; cursor: pointer; transition: transform 0.3s ease-out; }
         .logo-img { height: 40px; width: auto; object-fit: contain; filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5)); }
         .logo-text { font-family: 'Helvetica', 'Arial', sans-serif; font-weight: 900; font-size: 20px; letter-spacing: -1px; color: #fff; }
+        
         nav { display: flex; gap: 30px; }
         .nav-link { font-family: 'Helvetica', 'Arial', sans-serif; font-weight: 700; font-size: 14px; color: #fff; text-decoration: none; position: relative; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s ease; }
         .nav-link:hover { color: #fff !important; animation: sopranos-shake 2s infinite linear; opacity: 1 !important; }
+
         .header-right-group { display: flex; align-items: center; gap: 25px; }
+        
         .menu-toggle { cursor: pointer; width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; z-index: 10005; }
-        .bar { width: 100%; height: 2px; background-color: #fff; border-radius: 2px; transition: 0.4s; }
+        .bar { width: 100%; height: 2px; background-color: #fff; border-radius: 2px; transition: 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6); }
         body.menu-open .bar:nth-child(1) { transform: rotate(45deg) translate(5px, 8px); }
         body.menu-open .bar:nth-child(2) { opacity: 0; transform: translateX(-20px); }
         body.menu-open .bar:nth-child(3) { transform: rotate(-45deg) translate(5px, -8px); }
 
-        .overlay-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: #000; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: 0.5s ease; pointer-events: none; }
+        .overlay-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: #000; z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1); pointer-events: none; }
         body.menu-open .overlay-menu { opacity: 1; visibility: visible; pointer-events: auto; }
         .overlay-nav { display: flex; flex-direction: column; gap: 30px; text-align: center; }
         .overlay-link { font-size: 3rem; font-weight: 900; color: #fff; text-decoration: none; text-transform: uppercase; transition: 0.3s; }
         .overlay-link:hover { color: #32CD32; }
 
-        /* --- BAŞLIKLAR --- */
+        /* --- BAŞLIKLAR (Standart) --- */
         .section-wrapper { display: flex; flex-direction: column; align-items: center; padding: 80px 20px; }
         .title-container { display: inline-block; padding: 20px 0; margin-bottom: 50px; perspective: 1000px; cursor: default; text-align: center; }
         .styled-title {
@@ -60,14 +63,48 @@
         }
         .title-container:hover .styled-title { transform: rotateX(10deg); }
 
-        /* GAME STATION BAŞLIK (SOFT GLITCH) */
-        .glitch-title-container { position: relative; display: inline-block; margin-bottom: 50px; cursor: default; }
-        .glitched-text { font-family: 'Inter', sans-serif; font-size: 4rem; font-weight: 900; text-transform: uppercase; letter-spacing: -2px; color: #fff; position: relative; z-index: 1; }
-        .glitched-text::before, .glitched-text::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; opacity: 0.7; }
-        .glitched-text::before { text-shadow: -2px 0 #ff00c1; animation: glitch-anim-soft-1 4s infinite linear alternate-reverse; }
-        .glitched-text::after { text-shadow: 2px 0 #00fff9; animation: glitch-anim-soft-2 5s infinite linear alternate-reverse; }
-        @keyframes glitch-anim-soft-1 { 0% { clip-path: inset(0 0 0 0); transform: translate(0); } 92% { clip-path: inset(0 0 0 0); transform: translate(0); } 94% { clip-path: inset(10% 0 85% 0); transform: translate(-2px, 2px); } 96% { clip-path: inset(40% 0 40% 0); transform: translate(2px, -2px); } 98% { clip-path: inset(80% 0 5% 0); transform: translate(-1px, 1px); } 100% { clip-path: inset(0 0 0 0); transform: translate(0); } }
-        @keyframes glitch-anim-soft-2 { 0% { clip-path: inset(0 0 0 0); transform: translate(0); } 94% { clip-path: inset(0 0 0 0); transform: translate(0); } 96% { clip-path: inset(20% 0 60% 0); transform: translate(2px, 2px); } 98% { clip-path: inset(60% 0 10% 0); transform: translate(-2px, -2px); } 100% { clip-path: inset(0 0 0 0); transform: translate(0); } }
+        /* --- YENİ: GAME STATION "SOFT" GLITCH BAŞLIK --- */
+        .glitch-title-container {
+            position: relative; display: inline-block; margin-bottom: 50px; cursor: default;
+        }
+        .glitched-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 4rem; font-weight: 900; text-transform: uppercase; letter-spacing: -2px;
+            color: #fff; position: relative; z-index: 1;
+        }
+        /* Glitch Katmanları (Daha şeffaf ve az hareketli) */
+        .glitched-text::before,
+        .glitched-text::after {
+            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: #000; opacity: 0.7; /* Şeffaflık eklendi, ana yazı görünsün diye */
+        }
+        /* Katman 1: Pembe */
+        .glitched-text::before {
+            text-shadow: -2px 0 #ff00c1; 
+            animation: glitch-anim-soft-1 4s infinite linear alternate-reverse; /* Süre uzatıldı (4s) */
+        }
+        /* Katman 2: Siyan/Mavi */
+        .glitched-text::after {
+            text-shadow: 2px 0 #00fff9; 
+            animation: glitch-anim-soft-2 5s infinite linear alternate-reverse; /* Süre uzatıldı (5s) */
+        }
+
+        /* Daha Sakin Animasyonlar (Çoğu zaman sabit durur) */
+        @keyframes glitch-anim-soft-1 {
+            0% { clip-path: inset(0 0 0 0); transform: translate(0); }
+            92% { clip-path: inset(0 0 0 0); transform: translate(0); } /* %92'ye kadar haraket yok */
+            94% { clip-path: inset(10% 0 85% 0); transform: translate(-2px, 2px); }
+            96% { clip-path: inset(40% 0 40% 0); transform: translate(2px, -2px); }
+            98% { clip-path: inset(80% 0 5% 0); transform: translate(-1px, 1px); }
+            100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+        }
+        @keyframes glitch-anim-soft-2 {
+            0% { clip-path: inset(0 0 0 0); transform: translate(0); }
+            94% { clip-path: inset(0 0 0 0); transform: translate(0); } /* %94'e kadar haraket yok */
+            96% { clip-path: inset(20% 0 60% 0); transform: translate(2px, 2px); }
+            98% { clip-path: inset(60% 0 10% 0); transform: translate(-2px, -2px); }
+            100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+        }
 
         /* SADECE "3D" KISMI İÇİN KIRMIZI EFEKT */
         .real-3d-text {
@@ -249,7 +286,7 @@
     <header>
         <div class="header-left-group">
             <a href="index.html" class="logo-wrapper simple-tilt">
-                <img src="assets/mbkartsLogoPng.png" alt="Logo" class="logo-img">
+                <img src="assets/mbkartsLogoPng.png" alt="Burak Karakaş Logo" class="logo-img">
                 <span class="logo-text">MBK.ART</span>
             </a>
             <nav>
