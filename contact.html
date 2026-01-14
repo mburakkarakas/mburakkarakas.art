@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - Mehmet Burak KARAKAŞ</title>
-    <link rel="icon" type="image/png" href="image_0.png">
+    
+    <link rel="icon" type="image/png" href="assets/favicon/favicon.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Courier+New&display=swap" rel="stylesheet">
     
     <style>
@@ -13,7 +15,7 @@
         body { 
             margin: 0; font-family: 'Inter', sans-serif; color: white; overflow-x: hidden;
             user-select: none; -webkit-user-select: none; cursor: default; 
-            visibility: hidden; /* Loader için */           
+            visibility: hidden; /* Loader için */            
         }
         body.mbk-reveal { visibility: visible !important; opacity: 1 !important; transition: opacity 0.5s ease !important; background-color: transparent !important; }
         
@@ -372,8 +374,8 @@
                         let dx = mouse.x - this.x; let dy = mouse.y - this.y; let dist = Math.sqrt(dx*dx + dy*dy);
                         if (dist < mouse.radius) {
                             const force = (mouse.radius - dist) / mouse.radius;
-                            this.x -= (dx / dist) * force * this.density * 0.2;
-                            this.y -= (dy / dist) * force * this.density * 0.2;
+                            this.x -= (dx/dist) * force * this.density * 0.2;
+                            this.y -= (dy/dist) * force * this.density * 0.2;
                         }
                     }
                     if (this.x < 0 || this.x > width) this.vx *= -1; if (this.y < 0 || this.y > height) this.vy *= -1;
@@ -418,12 +420,13 @@
                 requestAnimationFrame(animCursor);
             }
             animCursor();
-            document.querySelectorAll("a, button, .menu-toggle, .simple-tilt, .constrained-tilt, .social-link").forEach(l => {
+            document.querySelectorAll("a, button, .menu-toggle, .simple-tilt, .social-link").forEach(l => {
                 l.addEventListener("mouseenter", () => cursor.style.backgroundColor = "#32CD32");
                 l.addEventListener("mouseleave", () => cursor.style.backgroundColor = "#32CD32");
             });
         });
 
+        // --- LOGO TILT (SMOOTH) ---
         document.querySelectorAll('.simple-tilt').forEach(el => {
             el.addEventListener('mousemove', (e) => {
                 const r = el.getBoundingClientRect();
@@ -432,7 +435,28 @@
                 const dx = x - xc; const dy = y - yc;
                 el.style.transform = `perspective(500px) rotateX(${dy/-12}deg) rotateY(${dx/12}deg) scale(1.05)`;
             });
-            el.addEventListener('mouseleave', () => el.style.transform = `perspective(500px) rotateX(0) rotateY(0) scale(1)`);
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = `perspective(500px) rotateX(0) rotateY(0) scale(1)`;
+            });
+        });
+
+        // --- HERO TITLES TILT ---
+        const smoothTiltItems = document.querySelectorAll('.smooth-tilt-item');
+        const lerp = (start, end, factor) => start + (end - start) * factor;
+        smoothTiltItems.forEach(el => {
+            let currentRotateY = 0, targetRotateY = 0, isHovering = false;
+            const update = () => {
+                if (!isHovering && Math.abs(targetRotateY - currentRotateY) < 0.05) { el.style.transform = `perspective(1000px) rotateY(0deg) scale(1)`; return; }
+                currentRotateY = lerp(currentRotateY, targetRotateY, 0.08);
+                el.style.transform = `perspective(1000px) rotateY(${currentRotateY}deg) scale(${isHovering?1.02:1})`;
+                requestAnimationFrame(update);
+            };
+            el.addEventListener('mousemove', e => {
+                if (!isHovering) { isHovering = true; update(); }
+                const rect = el.getBoundingClientRect();
+                targetRotateY = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
+            });
+            el.addEventListener('mouseleave', () => { isHovering = false; targetRotateY = 0; });
         });
     </script>
 </body>
