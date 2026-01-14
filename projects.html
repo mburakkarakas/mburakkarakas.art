@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects - Mehmet Burak KARAKAŞ</title>
-    <link rel="icon" type="image/png" href="image_0.png">
+    
+    <link rel="icon" type="image/png" href="assets/favicon/favicon.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Courier+New&display=swap" rel="stylesheet">
     
     <style>
@@ -29,7 +31,14 @@
             backdrop-filter: blur(5px);
         }
         .header-left-group { display: flex; align-items: center; gap: 40px; }
-        .logo-wrapper { display: flex; align-items: center; gap: 10px; text-decoration: none; opacity: 1; transform-style: preserve-3d; will-change: transform; cursor: pointer; transition: transform 0.3s ease-out; }
+        
+        .logo-wrapper { 
+            display: flex; align-items: center; gap: 10px; text-decoration: none; 
+            opacity: 1; 
+            /* Contact sayfasında margin-top yoktu, buradan da kaldırıldı */
+            transform-style: preserve-3d; will-change: transform; 
+            cursor: pointer; transition: transform 0.3s ease-out; 
+        }
         .logo-img { height: 40px; width: auto; object-fit: contain; filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5)); }
         .logo-text { font-family: 'Helvetica', 'Arial', sans-serif; font-weight: 900; font-size: 20px; letter-spacing: -1px; color: #fff; }
         
@@ -63,7 +72,7 @@
         }
         .title-container:hover .styled-title { transform: rotateX(10deg); }
 
-        /* --- YENİ: GAME STATION "SOFT" GLITCH BAŞLIK --- */
+        /* --- GAME STATION "SOFT" GLITCH BAŞLIK --- */
         .glitch-title-container {
             position: relative; display: inline-block; margin-bottom: 50px; cursor: default;
         }
@@ -286,7 +295,7 @@
     <header>
         <div class="header-left-group">
             <a href="index.html" class="logo-wrapper simple-tilt">
-                <img src="assets/mbkartsLogoPng.png" alt="Burak Karakaş Logo" class="logo-img">
+                <img src="assets/mbkartsLogoPng.png" alt="Logo" class="logo-img">
                 <span class="logo-text">MBK.ART</span>
             </a>
             <nav>
