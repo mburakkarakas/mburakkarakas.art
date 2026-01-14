@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mehmet Burak KARAKAŞ</title>
-    <link rel="icon" type="image/png" href="image_0.png">
+    <link rel="icon" type="image/png" href="assets/favicon/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Courier+New&display=swap" rel="stylesheet">
     
     <style>
@@ -163,13 +163,25 @@
         .footer-logo-img { width: 150px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.1)); opacity: 1; transform-style: preserve-3d; will-change: transform; transition: transform 0.3s ease-out; cursor: pointer; }
         .copyright { width: 100%; font-size: 0.8rem; color: #555; text-align: center; margin-top: 40px; }
 
-        /* --- SOSYAL MEDYA İKONLARI --- */
+        /* --- SOSYAL MEDYA İKONLARI (FOOTER İÇİN) --- */
         .social-wrapper { display: flex; align-items: center; gap: 12px; }
-        .social-link { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; background-color: #fff; border-radius: 50%; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; text-decoration: none; box-shadow: 0 0 0 rgba(255,255,255,0); }
+        
+        .social-link { 
+            display: flex; align-items: center; justify-content: center; 
+            width: 34px; height: 34px; background-color: #fff; 
+            border-radius: 50%; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            cursor: pointer; text-decoration: none; box-shadow: 0 0 0 rgba(255,255,255,0);
+        }
+        
         .social-img { width: 18px; height: 18px; object-fit: contain; }
-        .social-link:hover { transform: scale(1.15) translateY(-3px); box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4); }
 
-        /* SOPRANOS KEYFRAMES */
+        .social-link:hover {
+            transform: scale(1.15) translateY(-3px); 
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4); 
+        }
+
+        /* SOPRANOS KEYFRAMES: KIRMIZI */
         @keyframes sopranos-shake { 
             0% { transform: skew(0deg); filter: blur(0px); } 
             5% { transform: skew(-0.8deg) translateX(2px); text-shadow: -3px 0 rgba(255, 0, 0, 0.7); filter: blur(0.5px); } 
@@ -178,10 +190,15 @@
             100% { transform: skew(0deg); } 
         }
         
-        /* JELLY CURSOR */
-        .mbk-jelly-cursor { position: fixed; top: 0; left: 0; width: 30px; height: 30px; background-color: #32CD32; border-radius: 50%; pointer-events: none; z-index: 9999999999; mix-blend-mode: exclusion; opacity: 0; will-change: transform; transform-origin: center; transition: opacity 0.3s ease; }
+        /* JELLY CURSOR: YEŞİL */
+        .mbk-jelly-cursor { 
+            position: fixed; top: 0; left: 0; width: 30px; height: 30px; 
+            background-color: #32CD32; border-radius: 50%; pointer-events: none; 
+            z-index: 9999999999; mix-blend-mode: exclusion; opacity: 0; 
+            will-change: transform; transform-origin: center; transition: opacity 0.3s ease; 
+        }
 
-        /* --- 5. MINIMAL RADIO PLAYER --- */
+        /* --- 5. MINIMAL RADIO PLAYER (MİNİMALİZE EDİLDİ) --- */
         #mbk-radio-player { position: fixed; bottom: 30px; right: 30px; z-index: 9999; background: rgba(10, 0, 0, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255, 0, 0, 0.3); border-radius: 40px; padding: 8px 18px; display: flex; align-items: center; gap: 12px; transition: all 0.4s; box-shadow: 0 5px 20px rgba(0,0,0,0.6); max-width: 160px; overflow: hidden; }
         #mbk-radio-player:hover { max-width: 320px; border-color: #cc0000; }
         #radio-toggle { background: transparent; border: 1px solid #fff; color: #fff; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; transition: 0.3s; }
