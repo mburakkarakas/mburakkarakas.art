@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mehmet Burak KARAKAŞ</title>
+    
     <link rel="icon" type="image/png" href="assets/favicon/favicon.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Courier+New&display=swap" rel="stylesheet">
     
     <style>
@@ -468,6 +470,24 @@
                 targetRotateY = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
             });
             el.addEventListener('mouseleave', () => { isHovering = false; targetRotateY = 0; });
+        });
+        
+        // --- PROTECTION (SAĞ TIK VE KAYNAK KOD KORUMASI) ---
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        document.querySelectorAll('img').forEach(img => {
+            img.setAttribute('draggable', 'false');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (
+                e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                (e.ctrlKey && e.key === 'u') || 
+                (e.ctrlKey && e.key === 's')
+            ) {
+                e.preventDefault();
+            }
         });
     </script>
 </body>
