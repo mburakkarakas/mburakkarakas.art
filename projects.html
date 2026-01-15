@@ -31,14 +31,7 @@
             backdrop-filter: blur(5px);
         }
         .header-left-group { display: flex; align-items: center; gap: 40px; }
-        
-        .logo-wrapper { 
-            display: flex; align-items: center; gap: 10px; text-decoration: none; 
-            opacity: 1; 
-            /* Contact sayfasında margin-top yoktu, buradan da kaldırıldı */
-            transform-style: preserve-3d; will-change: transform; 
-            cursor: pointer; transition: transform 0.3s ease-out; 
-        }
+        .logo-wrapper { display: flex; align-items: center; gap: 10px; text-decoration: none; opacity: 1; transform-style: preserve-3d; will-change: transform; cursor: pointer; transition: transform 0.3s ease-out; }
         .logo-img { height: 40px; width: auto; object-fit: contain; filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5)); }
         .logo-text { font-family: 'Helvetica', 'Arial', sans-serif; font-weight: 900; font-size: 20px; letter-spacing: -1px; color: #fff; }
         
@@ -431,7 +424,7 @@
             <div class="social-wrapper">
                 <a href="https://x.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/Xnew.png" class="social-img"></a>
                 <a href="https://bsky.app/profile/mburakkarakas.art" target="_blank" class="social-link"><img src="assets/blueskynew.png" class="social-img"></a>
-                <a href="https://instagram.com/mburakkarakas" target="_blank" class="social-link"><img src="assets/instagramnew.png" class="social-img"></a>
+                <a href="https://instagram.com/mburakarakas" target="_blank" class="social-link"><img src="assets/instagramnew.png" class="social-img"></a>
                 <a href="https://facebook.com/mehmetburakkarakas" target="_blank" class="social-link"><img src="assets/facebooknew.png" class="social-img"></a>
                 <a href="https://www.linkedin.com/in/mburakkarakas/" target="_blank" class="social-link"><img src="assets/linkedinnew.png" class="social-img"></a>
                 <a href="https://www.behance.net/mburakkarakas" target="_blank" class="social-link"><img src="assets/behancenew.png" class="social-img"></a>
@@ -690,6 +683,24 @@
             }
             animate();
         })();
+        
+        // --- PROTECTION (SAĞ TIK VE KAYNAK KOD KORUMASI) ---
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        document.querySelectorAll('img').forEach(img => {
+            img.setAttribute('draggable', 'false');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (
+                e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                (e.ctrlKey && e.key === 'u') || 
+                (e.ctrlKey && e.key === 's')
+            ) {
+                e.preventDefault();
+            }
+        });
     </script>
 </body>
 </html>
