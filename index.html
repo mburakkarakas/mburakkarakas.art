@@ -219,7 +219,76 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; } 
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+
+
+/* --- MOBİL UYUMLULUK (RESPONSIVE) --- */
+        @media screen and (max-width: 768px) {
+            /* 1. Header ve Menü */
+            header { padding: 15px 20px; }
+            .header-left-group { gap: 15px; }
+            /* Mobilde üst menü linklerini gizle, sadece hamburger kalsın */
+            nav { display: none; } 
+            .logo-text { font-size: 16px; }
+            .logo-img { height: 30px; }
+
+            /* 2. Başlıklar ve Yazılar */
+            .styled-title, .glitched-text, .contact-title, .about-title { 
+                font-size: 2.2rem !important; /* Dev başlıkları küçült */
+                text-underline-offset: 8px;
+            }
+            .hero-title { font-size: 2rem; }
+            .hero-name { font-size: 1.1rem; }
+
+            /* 3. Genel Düzen */
+            .section-wrapper, .contact-section, .about-section { 
+                padding: 60px 20px; 
+                min-height: auto; /* Mobilde zorunlu tam ekranı kaldır */
+            }
+            
+            /* 4. Game Station (Projects Sayfası) */
+            .game-section-layout { flex-direction: column; gap: 40px; }
+            .crt-outer { max-width: 100%; border-width: 3px; padding: 10px; }
+            .crt-screen { height: 250px; }
+            
+            /* Dikey yazıyı yataya çevir */
+            .genre-separator { height: auto; margin: 10px 0; }
+            .genre-text { 
+                writing-mode: horizontal-tb; 
+                transform: rotate(0deg); 
+                font-size: 1.2rem; 
+                letter-spacing: 2px;
+            }
+            
+            .info-panel { width: 100%; min-height: auto; padding: 20px; }
+            .info-panel h3 { font-size: 1.5rem; }
+
+            /* 5. About Sayfası */
+            .about-section { flex-direction: column-reverse; gap: 40px; text-align: center; padding-top: 100px; }
+            .about-text-wrapper { align-items: center; }
+            .about-description { text-align: center; font-size: 0.95rem; }
+            .about-photo-wrapper img { max-width: 80%; opacity: 0.5; filter: grayscale(0%); }
+
+            /* 6. Footer */
+            .page-footer { flex-direction: column; text-align: center; gap: 30px; }
+            .footer-right { justify-content: center; }
+            .footer-center { margin: 0; }
+
+            /* 7. Özellikler */
+            .mbk-jelly-cursor { display: none !important; } /* Mobilde cursor yok, gizle */
+            .marquee-text { font-size: 1.5rem; } /* Kayan yazıyı küçült */
+            
+            /* Form ve Butonlar */
+            .contact-form { width: 100%; }
+            .form-input, .form-textarea { padding: 15px; font-size: 0.9rem; }
+            
+            /* Radyo Player (Mobilde sağ alta sıkışmasın, biraz küçülsün) */
+            #mbk-radio-player { bottom: 10px; right: 10px; padding: 5px 12px; max-width: 45px; }
+            #mbk-radio-player:hover { max-width: 280px; }
+            .station-name { font-size: 10px; }
+        }
+        
     </style>
 </head>
 <body>
@@ -492,3 +561,4 @@
     </script>
 </body>
 </html>
+
