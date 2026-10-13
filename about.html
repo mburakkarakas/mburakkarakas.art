@@ -6,27 +6,6 @@
     <title>About Me - Mehmet Burak KARAKAŞ</title>
     
     <link rel="icon" type="image/png" href="assets/favicon/favicon.png">
-
-
-
-<meta name="description" content="Game Developer, Designer & Animator. Dijital sanat ve oyun geliştirme portfolyosu.">
-    <meta name="author" content="Mehmet Burak KARAKAŞ">
-
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://mburakkarakas.art">
-    <meta property="og:title" content="Mehmet Burak KARAKAŞ">
-    <meta property="og:description" content="Game Developer, Designer & Animator. Dijital sanat ve oyun geliştirme portfolyosu.">
-    <meta property="og:image" content="https://mburakkarakas.art/assets/mbkartsLogo2.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:site_name" content="Mehmet Burak KARAKAŞ">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://mburakkarakas.art">
-    <meta name="twitter:title" content="Mehmet Burak KARAKAŞ">
-    <meta name="twitter:description" content="Game Developer, Designer & Animator. Dijital sanat ve oyun geliştirme portfolyosu.">
-    <meta name="twitter:image" content="https://mburakkarakas.art/assets/mbkartsLogo2.png">
-    
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Courier+New&display=swap" rel="stylesheet">
     
@@ -240,171 +219,31 @@
             100% { transform: skew(0deg); } 
         }
 
-        /* --- SCROLLBAR --- */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; } /* Minimal Gri */
-
-
-
-
-
-
-        /* --- MOBİL UYUMLULUK (TAM ORTALI & SİMETRİK) --- */
-        @media screen and (max-width: 768px) {
-            /* 1. Genel Hizalama */
-            body, .section-wrapper, .contact-section, .about-section, .hero-section {
-                text-align: center !important; /* Her şeyi ortala */
-            }
-
-            /* 2. Header (Logo Solda, Menü Sağda Kalmalı - Standart UX) */
-            header { 
-                padding: 15px 20px; 
-                justify-content: space-between; 
-            }
-            /* Mobilde üst linkleri gizle */
-            nav { display: none; } 
-            .logo-text { font-size: 18px; } /* Logoyu tık daha belirgin yap */
-            .logo-img { height: 35px; }
-
-            /* 3. Başlıklar ve Yazılar */
-            .styled-title, .glitched-text, .contact-title, .about-title { 
-                font-size: 2.5rem !important; /* Telefonda okunur boyuta getir */
-                line-height: 1.1;
-                margin-bottom: 30px;
-                text-underline-offset: 8px;
-                display: inline-block; /* Ortalamak için şart */
-            }
-            .hero-title { font-size: 2rem; }
-            .hero-name { font-size: 1.2rem; margin-bottom: 20px; }
-            
-            /* Yazı paragraflarını da ortala */
-            p, .about-description, .modal-desc, .info-panel p {
-                text-align: center !important; 
-                text-align-last: center !important; /* Son satırı da ortala */
-            }
-
-            /* 4. Genel Bölüm Düzeni */
-            .section-wrapper, .contact-section, .about-section { 
-                padding: 80px 20px; 
-                min-height: auto; 
-                display: flex;
-                flex-direction: column;
-                align-items: center; /* Yatayda ortala */
-            }
-            
-            /* 5. Game Station (Projects) - Alt Alta Dizilim */
-            .game-section-layout { 
-                flex-direction: column; 
-                gap: 40px; 
-                width: 100%;
-                align-items: center;
-            }
-            .crt-outer { 
-                width: 100%; 
-                max-width: 350px; /* Telefona sığsın */
-                margin: 0 auto; /* Ortala */
-                border-width: 3px; 
-                padding: 10px; 
-            }
-            .crt-screen { height: 220px; }
-            
-            /* Dikey yazıyı yataya çevirip ortala */
-            .genre-separator { height: auto; margin: 20px 0; }
-            .genre-text { 
-                writing-mode: horizontal-tb; 
-                transform: rotate(0deg); 
-                font-size: 1.2rem; 
-                letter-spacing: 2px;
-                display: block;
-                text-align: center;
-            }
-            
-            .info-panel { 
-                width: 100%; 
-                min-height: auto; 
-                padding: 25px; 
-                text-align: center;
-                align-items: center;
-            }
-            .info-panel h3 { font-size: 1.8rem; margin-bottom: 15px; }
-
-            /* 6. About Sayfası - Fotoğraf Üste, Yazı Alta */
-            .about-section { 
-                flex-direction: column; /* Fotoğraf önce gelsin istersen bunu silme */
-                gap: 40px; 
-                padding-top: 100px; 
-            }
-            /* Fotoğraf */
-            .about-photo-wrapper {
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                margin-bottom: 20px;
-            }
-            .about-photo-wrapper img { 
-                max-width: 70%; 
-                opacity: 0.8; 
-                filter: grayscale(0%); 
-            }
-            /* Yazı Alanı */
-            .about-text-wrapper { 
-                width: 100%;
-                align-items: center; 
-            }
-
-            /* 7. Contact Formu */
-            .contact-form { 
-                width: 100%; 
-                align-items: center; /* Butonu ortalar */
-            }
-            .form-input, .form-textarea { 
-                text-align: center; /* İçindeki yazıyı da ortala */
-                padding: 15px; 
-                font-size: 1rem; 
-            }
-            .send-btn { width: 100%; max-width: 200px; } /* Butonu biraz genişlet */
-
-            /* 8. Footer */
-            .page-footer { 
-                flex-direction: column; 
-                text-align: center; 
-                gap: 30px; 
-                justify-content: center;
-            }
-            .footer-left, .footer-right, .footer-center {
-                align-items: center; 
-                justify-content: center;
-                width: 100%;
-            }
-            .footer-btn { 
-                margin: 5px 0; 
-                display: inline-block;
-            }
-
-            /* 9. Ekstralar */
-            .mbk-jelly-cursor { display: none !important; } /* Cursor gizle */
-            .marquee-text { font-size: 1.5rem; } 
-            
-            /* Radyo Player (Sağ alt köşe yerine alt ortaya sabitle) */
-            #mbk-radio-player { 
-                bottom: 20px; 
-                left: 50%; 
-                transform: translateX(-50%); /* Tam ortala */
-                right: auto;
-                padding: 8px 20px; 
-                max-width: 90%; 
-                border-radius: 50px;
-                justify-content: space-between;
-                background: rgba(0,0,0,0.9);
-            }
-            #mbk-radio-player:hover { max-width: 90%; }
-            .volume-container { display: none; } /* Mobilde ses ayarı zor, gizle */
+        /* --- SCROLLBAR (REFİK ANADOL TARZI ULTRA SMOOTH ÇİZGİ) --- */
+        ::-webkit-scrollbar { width: 0px; background: transparent; display: none; }
+        html { scrollbar-width: none; -ms-overflow-style: none; }
+        
+        #ra-scroll-track {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 2px;
+            height: 100vh;
+            background: transparent;
+            z-index: 100005;
+            pointer-events: none;
+        }
+        #ra-scroll-bar {
+            width: 100%;
+            height: 0%;
+            background-color: #ffffff;
+            will-change: height;
         }
     </style>
 </head>
 <body>
+
+    <div id="ra-scroll-track"><div id="ra-scroll-bar"></div></div>
 
     <canvas id="network-canvas"></canvas>
 
@@ -444,9 +283,9 @@
             </div>
             <div class="about-description">
                 <p>Mehmet Burak Karakas is an artist born in Silivri, Istanbul, originally from Tekirdag. Since childhood, he has been passionate about drawing cartoons, and over time, he has specialized in character design, game development, and animation.</p>
-                <p>He graduated from the Department of Cartoon and Animation at the Faculty of Fine Arts, Dokuz Eylül University, completing a 4-year program. He also completed a second bachelor’s degree in Visual Communication Design at Anadolu University. He is currently pursuing a master’s degree in History at Namık Kemal University, further expanding his interests into cultural and historical studies.</p>
-                <p>Among his notable projects is the 2024 animated documentary “Favela Izmir”, which draws parallels between Kadifekale in Izmir and the favelas of Brazil. In 2025, he developed the video game “Sector 9: The Awakening”, for which he designed all characters, animation sprites, and 3D environment models himself, using artificial intelligence only in the coding process.</p>
-                <p>As for collaborative works, one of the highlights is the animated film “The Rhythm of Izmir”, where he transformed selected photographs into moving animations. The film won an award in Itabuna, Brazil, as part of a team effort. He also contributed to the animated film “Mind Halt”, where he was part of the 3D team, assisting in set dressing and 3D modeling.</p>
+                <p>He graduated from the Department of Cartoon and Animation at the Faculty of Fine Arts, Dokuz Eylül University, completing a 4-year program. He is also pursuing a second bachelor’s degree in Visual Communication Design at Anadolu University.</p>
+                <p>Among his notable projects is the 2024 animated documentary “Favela izmir”, which draws parallels between Kadifekale in izmir and the favelas of Brazil. In 2025, he developed the video game “Sector 9: The Awakening”, for which he designed all characters, animation sprites, and 3D environment models himself, using artificial intelligence only in the coding process.</p>
+                <p>As for collaborative works, one of the highlights is the animated film “The Rhythm of izmir”, where he transformed selected photographs into moving animations. The film won an award in Itabuna, Brazil, as part of a team effort. He also contributed to the animated film “Mind Halt”, where he was part of the 3D team, assisting in set dressing and 3D modeling.</p>
                 <p>Karakas continues to engage in both individual and collaborative projects, combining his technical expertise with a creative vision. For him, animation, character design, and game development are not merely professions, but lifelong passions.</p>
             </div>
         </div>
@@ -641,10 +480,37 @@
                 e.preventDefault();
             }
         });
+
+        // --- REFİK ANADOL TARZI ULTRA SMOOTH (LERP) SCROLL BAR ---
+        (function() {
+            const scrollBar = document.getElementById('ra-scroll-bar');
+            let currentPercent = 0;
+            let targetPercent = 0;
+
+            function updateTarget() {
+                const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                targetPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            }
+
+            function smoothScrollAnim() {
+                currentPercent += (targetPercent - currentPercent) * 0.05;
+                
+                if (targetPercent === 0 && currentPercent < 0.15) {
+                    currentPercent = 0;
+                } else if (targetPercent === 100 && currentPercent > 99.85) {
+                    currentPercent = 100;
+                }
+
+                scrollBar.style.height = currentPercent.toFixed(2) + '%';
+                requestAnimationFrame(smoothScrollAnim);
+            }
+
+            window.addEventListener('scroll', updateTarget, { passive: true });
+            window.addEventListener('resize', updateTarget);
+            updateTarget();
+            smoothScrollAnim();
+        })();
     </script>
 </body>
 </html>
-
-
-
-
